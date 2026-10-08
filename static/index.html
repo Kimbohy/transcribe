@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio vers MIDI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Audio <span>→</span> MIDI</h1>
+      <p>Dépose un enregistrement de piano, récupère les notes jouées.</p>
+    </header>
+
+    <section id="card" data-state="idle">
+      <div id="drop" role="button" tabindex="0" aria-label="Choisir un fichier audio">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <strong>Glisse un fichier audio ici</strong>
+        <span>ou clique pour choisir · mp3, wav, m4a, flac, ogg</span>
+      </div>
+      <input id="file" type="file" accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg,.opus,.aac,.webm" hidden>
+
+      <div id="file-box">
+        <div class="file-row">
+          <div class="file-meta">
+            <div id="file-name"></div>
+            <div id="file-size"></div>
+          </div>
+          <button id="reset" type="button" class="link" aria-label="Changer de fichier">Changer</button>
+        </div>
+        <audio id="player" controls preload="metadata"></audio>
+        <button id="go" type="button" class="primary">Transcrire</button>
+      </div>
+
+      <div id="status" aria-live="polite"></div>
+
+      <div id="result">
+        <div id="result-stats"></div>
+        <a id="download" class="primary" href="#" download="result.mid">Télécharger le MIDI</a>
+      </div>
+    </section>
+
+    <footer id="foot">Piano solo · ByteDance Piano Transcription</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

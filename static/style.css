@@ -1,0 +1,133 @@
+:root {
+  --bg: #fafaf9;
+  --card: #ffffff;
+  --text: #1c1917;
+  --muted: #78716c;
+  --line: #e7e5e4;
+  --accent: #3f3f46;
+  --accent-text: #fafafa;
+  --err: #b91c1c;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131211;
+    --card: #1c1a19;
+    --text: #f5f5f4;
+    --muted: #a8a29e;
+    --line: #2e2b29;
+    --accent: #e7e5e4;
+    --accent-text: #1c1917;
+    --err: #f87171;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+main { width: 100%; max-width: 480px; }
+
+header { text-align: center; margin-bottom: 28px; }
+h1 { margin: 0 0 6px; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; }
+h1 span { color: var(--muted); font-weight: 400; }
+header p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+#card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* Zone de dépôt */
+#drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 36px 16px;
+  border: 1.5px dashed var(--line);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+#drop svg { width: 28px; height: 28px; color: var(--muted); margin-bottom: 6px; }
+#drop span { color: var(--muted); font-size: 0.85rem; }
+#drop:hover, #drop:focus-visible, #drop.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, transparent); outline: none; }
+
+/* Fichier choisi */
+#file-box { display: none; }
+.file-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.file-meta { min-width: 0; }
+#file-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#file-size { color: var(--muted); font-size: 0.85rem; }
+audio { width: 100%; height: 36px; margin-bottom: 16px; }
+
+button, .primary {
+  font: inherit;
+  cursor: pointer;
+}
+.primary {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.primary:hover { opacity: .88; }
+.primary:focus-visible, .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.primary:disabled { opacity: .4; cursor: default; }
+.link { background: none; border: 0; color: var(--muted); padding: 4px; font-size: 0.9rem; text-decoration: underline; }
+.link:hover { color: var(--text); }
+
+/* Statut et résultat */
+#status { margin-top: 14px; text-align: center; color: var(--muted); font-size: 0.9rem; min-height: 1.4em; }
+#status.error { color: var(--err); }
+#status.busy::before {
+  content: "";
+  display: inline-block;
+  width: 12px; height: 12px;
+  margin-right: 8px;
+  vertical-align: -1px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { #status.busy::before { animation-duration: 3s; } }
+
+#result { display: none; margin-top: 14px; }
+#result-stats { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
+
+/* États */
+#card[data-state="idle"] #status:empty { display: none; }
+#card[data-state="ready"] #drop,
+#card[data-state="working"] #drop,
+#card[data-state="done"] #drop,
+#card[data-state="error"] #drop { display: none; }
+#card[data-state="ready"] #file-box,
+#card[data-state="working"] #file-box,
+#card[data-state="done"] #file-box,
+#card[data-state="error"] #file-box { display: block; }
+#card[data-state="working"] #reset { visibility: hidden; }
+#card[data-state="done"] #go { display: none; }
+#card[data-state="done"] #result { display: block; }
+
+footer { margin-top: 20px; text-align: center; color: var(--muted); font-size: 0.8rem; }

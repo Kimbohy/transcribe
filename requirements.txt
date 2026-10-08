@@ -1,0 +1,10 @@
+# PyTorch s'installe à part (voir README) : CPU ou GPU selon ta machine.
+numpy<2
+soundfile
+librosa
+torchlibrosa
+mido
+matplotlib
+fastapi
+uvicorn[standard]
+python-multipart
