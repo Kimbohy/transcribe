@@ -1,0 +1,16 @@
+[project]
+name = "trancribe"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "kimbohy", email = "lovabarwijons@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+trancribe = "trancribe:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
